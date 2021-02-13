@@ -31,6 +31,9 @@ class TodoList(db.Model):
 
 @app.route('/lists/<list_id>')
 def get_list_todos(list_id):
+
+    l=Todo.query.filter_by(list_id=list_id).order_by('id').all(),
+    print(l)
     return render_template('index.html', 
     lists=TodoList.query.all(),
     todos=Todo.query.filter_by(list_id=list_id).order_by('id').all(),
@@ -41,6 +44,28 @@ def get_list_todos(list_id):
 def index():
     return redirect(url_for('get_list_todos', list_id=1))
 
+# This will eventually be able to handle new lists creation
+# @app.route('/todos-list/create', methods=['POST'])
+# def create_todo_list():
+#     error = False
+#     body = {}
+#     try: 
+#     # can optionaly take 2 arguments if nothing is submitted in the form
+#         desc = request.get_json()['description']
+#         todo = Todo(description=desc)
+#         db.session.add(todo)
+#         db.session.commit()
+#         body['description'] = todo.description
+#     except:
+#         error = True
+#         db.session.rollback()
+#         print(sys.exc_info)
+#     finally:
+#         db.session.close()
+#     if  error:
+#         abort(400)
+#     else:    
+#         return jsonify(body)
 
 
 @app.route('/todos/create', methods=['POST'])

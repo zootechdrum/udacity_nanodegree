@@ -41,6 +41,10 @@
 
 <body>
     <div class="list-wrapper">
+        <form id="form">
+            <input id="description" type="text" name="new-list-name" placeholder="Create a new list">
+            <input type="submit" value="create" />
+        </form>
     <ul id="lists">
         {% for list in lists %}
         <li><a href="/lists/{{list.id}}" > {{list.name}}</a></li>
